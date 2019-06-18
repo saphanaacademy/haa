@@ -1,0 +1,14 @@
+{
+    "xsappname": "haa",
+    "tenant-mode": "shared",
+    "scopes": [{
+        "name": "$XSAPPNAME.Display",
+        "description": "Display"
+    }],
+    "role-templates": [{
+        "name": "Viewer",
+        "description": "View",
+        "scope-references": ["$XSAPPNAME.Display"],
+        "attribute-references": []
+    }]
+}

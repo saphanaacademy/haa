@@ -1,0 +1,20 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"routes": [{
+		"source": "/sap/bc/ina",
+		"destination": "haa-java",
+		"httpMethods": ["POST", "GET"],
+		"authenticationType": "xsuaa",
+		"scope": "$XSAPPNAME.Display"
+	}, {
+		"source": "/sap/bc/ina",
+		"destination": "haa-java",
+		"httpMethods": ["OPTIONS"],
+		"authenticationType": "none"
+	}, {
+		"source": "^/(.*)",
+		"localDir": "resources",
+		"authenticationType": "none"
+	}]
+}

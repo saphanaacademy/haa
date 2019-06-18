@@ -1,0 +1,53 @@
+ID: haa
+_schema-version: '2.0'
+version: 0.0.1
+
+modules:
+
+ - name: haa-java
+   type: java
+   path: haa-java
+   parameters:
+     memory: 512M
+     buildpack: sap_java_buildpack
+   properties:
+     TARGET_RUNTIME: tomee
+     JBP_CONFIG_RESOURCE_CONFIGURATION: "['tomee/webapps/ROOT/WEB-INF/resources.xml': {'xsahaa-hdi-container':'<hdi-container>'}]"
+     USE_NAMED_USER: true
+     SECONDARY_ROUTING_PERCENT: 0
+     SAP_JWT_TRUST_ACL: '[{"clientid":"sb-haa-java", "identityzone": "*"}]'
+   provides:
+    - name: haa-java
+      properties:
+        url: ${default-url}
+   requires:
+    - name: haa-uaa
+    - name: <hdi-container>
+
+ - name: haa
+   type: nodejs
+   path: haa-entry
+   parameters:
+     memory: 128M
+     buildpack: nodejs_buildpack
+   requires:
+    - name: haa-uaa
+    - name: haa-java
+      group: destinations
+      properties:
+        name: haa-java
+        url: ~{url}
+        forwardAuthToken: true
+        timeout: 600000
+   properties:
+     CORS: '[{"uriPattern": "^/sap/bc/ina/(.*)$", "allowedOrigin": [{"host":"<sac-host>", "protocol":"https"}], "allowedMethods": ["GET", "POST", "OPTIONS"], "allowedHeaders": ["Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Sap-Cid", "X-Csrf-Token"], "exposeHeaders": ["Accept", "Authorization", "X-Requested-With", "X-Sap-Cid", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "X-Csrf-Token", "Content-Type"]}]'
+     INCOMING_CONNECTION_TIMEOUT: 600000
+     TENANT_HOST_PATTERN: '^(.*)-<space>-haa.cfapps.(.*).hana.ondemand.com'
+
+resources:
+ - name: haa-uaa
+   type: com.sap.xs.uaa
+   parameters:
+      path: ./xs-security.json
+ - name: <hdi-container>
+   type: org.cloudfoundry.existing-service
