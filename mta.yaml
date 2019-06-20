@@ -8,7 +8,7 @@ modules:
    type: java
    path: haa-java
    parameters:
-     memory: 512M
+     memory: 1024M
      buildpack: sap_java_buildpack
    properties:
      TARGET_RUNTIME: tomee
@@ -28,7 +28,7 @@ modules:
    type: nodejs
    path: haa-entry
    parameters:
-     memory: 128M
+     memory: 512M
      buildpack: nodejs_buildpack
    requires:
     - name: haa-uaa
