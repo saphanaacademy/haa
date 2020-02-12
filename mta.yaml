@@ -41,6 +41,7 @@ modules:
         timeout: 600000
    properties:
      CORS: '[{"uriPattern": "^/sap/bc/ina/(.*)$", "allowedOrigin": [{"host":"<sac-host>", "protocol":"https"}], "allowedMethods": ["GET", "POST", "OPTIONS"], "allowedHeaders": ["Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Sap-Cid", "X-Csrf-Token"], "exposeHeaders": ["Accept", "Authorization", "X-Requested-With", "X-Sap-Cid", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "X-Csrf-Token", "Content-Type"]}]'
+     COOKIES: '{"SameSite": "None"}'
      INCOMING_CONNECTION_TIMEOUT: 600000
      TENANT_HOST_PATTERN: '^(.*)-<space>-haa.cfapps.(.*).hana.ondemand.com'
 

@@ -1,0 +1,5 @@
+node_modules/
+.npm
+.env
+.npmrc
+.DS_Store
