@@ -1,5 +1,5 @@
 ID: haa
-_schema-version: '2.0'
+_schema-version: "3.1"
 version: 0.0.1
 
 modules:
@@ -17,7 +17,7 @@ modules:
      SECONDARY_ROUTING_PERCENT: 0
      SAP_JWT_TRUST_ACL: '[{"clientid":"sb-haa-java", "identityzone": "*"}]'
    provides:
-    - name: haa-java
+    - name: haa-java-api
       properties:
         url: ${default-url}
    requires:
@@ -32,7 +32,7 @@ modules:
      buildpack: nodejs_buildpack
    requires:
     - name: haa-uaa
-    - name: haa-java
+    - name: haa-java-api
       group: destinations
       properties:
         name: haa-java
